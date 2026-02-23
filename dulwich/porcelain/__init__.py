@@ -3972,7 +3972,7 @@ def get_branch_remote(repo: str | os.PathLike[str] | Repo) -> bytes:
       KeyError: if the repository does not have a working tree
     """
     with open_repo_closing(repo) as r:
-        branch_name = active_branch(r.path)
+        branch_name = active_branch(r)
         config = r.get_config()
         try:
             remote_name = config.get((b"branch", branch_name), b"remote")
@@ -3996,7 +3996,7 @@ def get_branch_merge(repo: RepoPath, branch_name: bytes | None = None) -> bytes:
     """
     with open_repo_closing(repo) as r:
         if branch_name is None:
-            branch_name = active_branch(r.path)
+            branch_name = active_branch(r)
         config = r.get_config()
         return config.get((b"branch", branch_name), b"merge")
 
